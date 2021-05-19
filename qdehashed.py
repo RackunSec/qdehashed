@@ -9,12 +9,14 @@ from types import SimpleNamespace # for dot notation
 import json # to interpret results
 import requests # for API query
 import sys # for Exit
+from texttable import Texttable # for TUBULAR TABLES, DOOD!!
+import os # for terminal width
 
-version="0.5.19.0a"
+version="0.5.19.0f"
 ## Enter your API token and email address below:
 ## Get it from: https://www.dehashed.com/profile
 full_query={
-    "api_auth":("<EMAIL>","<API TOKEN>"),
+    "api_auth":("<EMAIL ADDRESS>","<API TOKEN>"),
     "params":{"query":""}, # what will the user query?
     "headers":{"Accept":"application/json"},
     "dehashed_api_url":"https://api.dehashed.com/search",
@@ -64,6 +66,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--query", help="Specify the string to query the Dehashed.com API.", required=True, metavar='(domain|user|name)')
 parser.add_argument("--type", help="The type of data to query.", required=True, metavar='(email|ip_address|username|password|hashed_password|name)')
 parser.add_argument("--output", help="Output results to a file.", type=argparse.FileType('a'), metavar="OUTPUT_FILE")
+parser.add_argument("--tables", help="Output results to a table.", action="store_true")
 args = parser.parse_args()
 
 ## Ensure that the user chose a correct method to consume:
@@ -107,22 +110,31 @@ class APIQuery:
                     print(f"{entry.address},",end="",file=args.output)
                     print(f"{entry.phone},",end="",file=args.output)
                     print(f"{entry.database_name}",file=args.output) # newline OK here.
-        else:
+        else: # NO FILE OUTPUT, JUST SCREEN OUTPUT
             if json_response.entries:
-                print(f"\n{color.BOLD}id,email,ip_address,username,password,hashed_password,name,vin,address,phone,database_name{color.ENDC}") # CSV first line.
-                for entry in json_response.entries:
-                    entry = SimpleNamespace(**entry)
-                    print(f"{color.GREY}{entry.id}{color.ENDC},",end="")
-                    print(f"{color.GREY}{entry.email}{color.ENDC},",end="")
-                    print(f"{color.GREY}{entry.ip_address}{color.ENDC},",end="")
-                    print(f"{color.GREY}{entry.username}{color.ENDC},",end="")
-                    print(f"{color.GREY}{entry.password}{color.ENDC},",end="")
-                    print(f"{color.GREY}{entry.hashed_password}{color.ENDC},",end="")
-                    print(f"{color.GREY}{entry.vin}{color.ENDC},",end="")
-                    print(f"{color.GREY}{entry.address}{color.ENDC},",end="")
-                    print(f"{color.GREY}{entry.phone}{color.ENDC},",end="")
-                    print(f"{color.GREY}{entry.database_name}{color.ENDC}") # newline OK here.
-                #print(json_response) DEBUG
+                if args.tables:
+                    tubular_table = Texttable((os.get_terminal_size().columns)-5)
+                    tubular_table.add_row(["email","name","username","password","hashed_password"])
+                    for entry in json_response.entries:
+                        entry = SimpleNamespace(**entry)
+                        #print([entry.email,entry.name,entry.username,entry.password,entry.hashed_password])
+                        tubular_table.add_row([entry.email,entry.name,entry.username,entry.password,entry.hashed_password])
+                    print(tubular_table.draw()) # draw it
+                else:
+                    print(f"\n{color.BOLD}id,email,ip_address,username,password,hashed_password,name,vin,address,phone,database_name{color.ENDC}") # CSV first line.
+                    for entry in json_response.entries:
+                        entry = SimpleNamespace(**entry)
+                        print(f"{color.GREY}{entry.id}{color.ENDC},",end="")
+                        print(f"{color.GREY}{entry.email}{color.ENDC},",end="")
+                        print(f"{color.GREY}{entry.ip_address}{color.ENDC},",end="")
+                        print(f"{color.GREY}{entry.username}{color.ENDC},",end="")
+                        print(f"{color.GREY}{entry.password}{color.ENDC},",end="")
+                        print(f"{color.GREY}{entry.hashed_password}{color.ENDC},",end="")
+                        print(f"{color.GREY}{entry.vin}{color.ENDC},",end="")
+                        print(f"{color.GREY}{entry.address}{color.ENDC},",end="")
+                        print(f"{color.GREY}{entry.phone}{color.ENDC},",end="")
+                        print(f"{color.GREY}{entry.database_name}{color.ENDC}") # newline OK here.
+                    #print(json_response) DEBUG
                 print("")
 
 api = APIQuery()
