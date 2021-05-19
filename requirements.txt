@@ -1,0 +1,4 @@
+argparse
+SimpleNamespace
+json
+requests
