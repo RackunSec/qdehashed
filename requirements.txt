@@ -1,4 +1,4 @@
 argparse
-SimpleNamespace
+prettytables
 json
 requests
