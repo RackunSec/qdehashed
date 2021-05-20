@@ -12,14 +12,15 @@ import sys # for Exit
 from texttable import Texttable # for TUBULAR TABLES, DOOD!!
 import os # for terminal width
 
-version="0.5.19.0f"
+version="0.5.20.0b"
 ## Enter your API token and email address below:
 ## Get it from: https://www.dehashed.com/profile
 full_query={
     "api_auth":("<EMAIL ADDRESS>","<API TOKEN>"),
-    "params":{"query":""}, # what will the user query?
-    "headers":{"Accept":"application/json"},
-    "dehashed_api_url":"https://api.dehashed.com/search",
+    "params":{"query":"","size":"10000"}, # what will the user query? (10k is the limit)
+    "headers":{"Accept":"application/json"}, # headers required to get "JSON" in the response
+    "dehashed_api_url":"https://api.dehashed.com/search", # This might chnage one day, so I put it up here.
+    # These are the different types of queries that you can do:
     "query_types_available":["email", "ip_address", "username", "password", "hashed_password", "name"]
 }
 
@@ -72,7 +73,7 @@ args = parser.parse_args()
 ## Ensure that the user chose a correct method to consume:
 if args.type not in full_query.query_types_available:
     print(f"{color.FAIL}\"{args.type}\" is NOT a valid method for the Dehashed API.")
-    print(f"    Please check the Deshashed API and try again.{color.ENDC}\n")
+    print(f"{color.ENDC} Here are the available mehthods: {full_query.query_types_available}\n")
     quit_me()
 
 ## Create a query object:
