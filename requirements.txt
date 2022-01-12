@@ -1,4 +1,3 @@
 argparse
 prettytables
-json
 requests
