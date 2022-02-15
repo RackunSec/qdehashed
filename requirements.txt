@@ -1,3 +1,4 @@
 argparse
 prettytables
 requests
+texttable
