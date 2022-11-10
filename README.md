@@ -18,7 +18,7 @@ Update the main app to include your email address and API token:
 ## EXAMPLES
 Run the application with your search type.
 ```bash
-root@demon3-4:~/Code/Workspaces/query-dehashed# ./qdehashed.py --type email --query someone@example.com
+python3 qdehashed.py --type email --query someone@example.com
 
    . ___ * .  __    . *     __  .       __   *
     / _ \___ / /  *__  __*_/ /  ___*___/ /     .
