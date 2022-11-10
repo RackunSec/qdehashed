@@ -36,4 +36,20 @@ id,email,ip_address,username,password,hashed_password,name,vin,address,phone,dat
 You can also do light password statistics analysis using qdehashed:
 ```bash
 python3 analysis.py (/PATH/TO/QDEHASHED/OUTPUT.CSV)
+
+ *** QDehashed Password Analysis Tool ***
+
+[i] Analysis for file: /PATH/TO/QDEHASHED/OUTPUT.CSV
+[i] Top Ten passwords used: 
++=====================================+
+[13] password123
+[13] MYpassword123#
+[10] LetMeIn@2022
+[6] Winter2022!
+[4] Summer2022!
+[3] Spring@2020
+[3] P@55w0rd@123
+[3] SuperS3cr3tPasswd!
+[3] 123456
+[2] password
 ```
