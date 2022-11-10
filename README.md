@@ -1,5 +1,5 @@
 # q-dehashed
-Unofficial Dehashed.com API Query Tool
+Unofficial [Dehashed.com](https://dehashed.com) API Query Tool. Dehashed.com has been invaluable to me for external and internal penetration tests.
 ## INSTALLATION
 Clone the repository:
 ```bash
