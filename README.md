@@ -1,14 +1,13 @@
 # q-dehashed
 Unofficial Dehashed.com API Query Tool
-![qdehashed screenshot](dehashed.png)
 ## INSTALLATION
 Clone the repository:
 ```bash
-git clone https://github.com/RackunSec/q-dehashed.git
+git clone https://github.com/RackunSec/qdehashed.git
 ```
 Install the requirements:
 ```bash
-cd q-dehashed
+cd qdehashed
 python3 -m pip install -r requirements.txt
 ```
 Update the main app to include your email address and API token:
@@ -33,4 +32,8 @@ root@demon3-4:~/Code/Workspaces/query-dehashed# ./qdehashed.py --type email --qu
 
 id,email,ip_address,username,password,hashed_password,name,vin,address,phone,database_name
 ... [REDACTED] ...
+```
+You can also do light password statistics analysis using qdehashed:
+```bash
+python3 analysis.py (/PATH/TO/QDEHASHED/OUTPUT.CSV)
 ```
